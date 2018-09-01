@@ -61,6 +61,7 @@ classifier.fit(X_train, y_train, batch_size = 10, epochs = 100)
 # Predicting the Test set results
 y_pred = classifier.predict(X_test)
 y_pred = (y_pred > 0.5)
+classifier.save("annmodel.model",include_optimizer=True)
 
 # Predicting a single new prediction
 """Predict if the customer with the following information will leave the bank:
@@ -74,6 +75,8 @@ Number of Products: 2
 Has Credit Card: Yes
 Is Active Member: Yes
 Estimated Salary: 50000"""
+
+classifier = keras.models.load_model("annmodel.model")
 new_prediction = classifier.predict(sc.transform(np.array([[0.0, 0, 600, 1, 40, 3, 60000, 2, 1, 1, 50000]])))
 new_prediction = (new_prediction > 0.5)
 
