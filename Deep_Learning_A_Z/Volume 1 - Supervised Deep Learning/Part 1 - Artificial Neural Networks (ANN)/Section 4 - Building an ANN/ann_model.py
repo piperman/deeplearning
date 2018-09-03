@@ -118,14 +118,14 @@ from sklearn.model_selection import GridSearchCV
 def build_classifier(optimizer):
     classifier = Sequential()
     classifier.add(Dense(units = 6, kernel_initializer = 'uniform', activation = 'relu', input_dim = 11))
-    classifier.add(Dense(units = 6, kernel_initializer = 'uniform', activation = 'relu'))
+    classifier.add(Dense(units = 6, kernel_initializer = 'glorot_uniform', activation = 'relu'))
     classifier.add(Dense(units = 1, kernel_initializer = 'uniform', activation = 'sigmoid'))
     classifier.compile(optimizer = optimizer, loss = 'binary_crossentropy', metrics = ['accuracy'])
     return classifier
 
 classifier = KerasClassifier(build_fn = build_classifier)
-parameters = {'batch_size': [25, 32],
-              'epochs': [100, 500],
+parameters = {'batch_size': [25, 42, 50],
+              'epochs': [100, 250, 500],
               'optimizer': ['adam', 'rmsprop']}
 grid_search = GridSearchCV(estimator = classifier,
                            param_grid = parameters,
